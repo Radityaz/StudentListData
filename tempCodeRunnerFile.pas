@@ -1,0 +1,1 @@
+        WriteLn('Hari ini: ', date, '/', hari, '/', bulan, '/', tahun);
