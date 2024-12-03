@@ -275,13 +275,18 @@ begin
 
     while True do
     begin
-        clrscr; // Bersihkan layar setiap iterasi
-
+        // Bersihkan area judul animasi saja
+        gotoxy(1, 1);
+        write(StringOfChar(' ', 80)); // Hapus baris pertama
 
         // Tampilkan judul animasi
         gotoxy(posX, 1); // Atur posisi judul
         writeln('DAFTAR MAHASISWA TI-1B');
-        WriteLn('Hari ini: ', date, '/', hari, '/', bulan, '/', tahun);
+
+        // Tampilkan tanggal di bawah judul
+        gotoxy(1, 2);
+        writeln('Hari ini: ', date, '/', hari, '/', bulan, '/', tahun);
+
         // Perbarui posisi teks judul
         posX := posX + direction;
 
@@ -290,23 +295,17 @@ begin
             direction := -direction;
 
         // Tampilkan atau sembunyikan judul tabel
-        gotoxy(1, 3); // Posisi awal judul tabel
+        gotoxy(1, 4); // Posisi awal judul tabel
         if showTitle then
         begin
             TextColor(white); // Warna teks tabel
             writeln('|No |Nama Mahasiswa                  |Tanggal    |NIM           |Jurusan                         |Prodi                           |JK |');
-        end
-        else
-        begin
-            // Hapus judul tabel dengan baris kosong
-            ClrEol;
-            gotoxy(1, 3);
         end;
 
         // Tampilkan isi tabel (tetap terlihat, tidak berkedip)
         for i := 1 to inputvalue.userindex do
         begin
-            gotoxy(1, 3 + i); // Baris berikutnya untuk setiap data mahasiswa
+            gotoxy(1, 4 + i); // Baris berikutnya untuk setiap data mahasiswa
             writeln(recordvalue.database[i]);
         end;
 
@@ -315,6 +314,13 @@ begin
 
         // Ganti status tampil/hilang untuk judul tabel
         showTitle := not showTitle;
+
+        // Cek input untuk keluar dari loop animasi
+        if KeyPressed then
+        begin
+            if ReadKey = #27 then // Tekan ESC untuk keluar
+                exit;
+        end;
     end;
 end;
 
