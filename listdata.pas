@@ -277,43 +277,42 @@ begin
 
     while True do
     begin
-        // Bersihkan area judul animasi sebelumnya
-        gotoxy(posX, posY);
-        write(StringOfChar(' ', Length('DAFTAR MAHASISWA TI-1B')));
+        // Bersihkan seluruh layar untuk mencegah bekas teks
+        clrscr;
 
         // Tampilkan judul animasi di posisi baru
         gotoxy(posX, posY);
-        writeln('DAFTAR MAHASISWA TI-1B');
+        write('DAFTAR MAHASISWA TI-1B');
 
         // Tampilkan tanggal di bawah judul tabel
         gotoxy(25, 2);
-        writeln('Hari ini: ', date, '/', hari, '/', bulan, '/', tahun);
+        write('Hari ini: ', date, '/', hari, '/', bulan, '/', tahun);
 
         // Perbarui posisi teks judul
         posX := posX + directionX;
         posY := posY + directionY;
 
-    // Periksa batas layar untuk mengubah arah gerakan
-    if (posX = 1) and (posY = 1) then
-    begin
-        directionX := 1; 
-        directionY := 0; // Gerak ke kanan
-    end
-    else if (posX = 185 - Length('DAFTAR MAHASISWA TI-1B')) and (posY = 1) then
-    begin
-        directionX := 0; 
-        directionY := 1; // Gerak ke bawah
-    end
-    else if (posX = 185 - Length('DAFTAR MAHASISWA TI-1B')) and (posY = 5 + inputvalue.userindex) then
-    begin
-        directionX := -1; 
-        directionY := 0; // Gerak ke kiri
-    end
-    else if (posX = 1) and (posY = 5 + inputvalue.userindex) then
-    begin
-        directionX := 0; 
-        directionY := -1; // Gerak ke atas
-    end;
+        // Periksa batas layar untuk mengubah arah gerakan
+        if (posX = 1) and (posY = 1) then
+        begin
+            directionX := 1; 
+            directionY := 0; // Gerak ke kanan
+        end
+        else if (posX = 185 - Length('DAFTAR MAHASISWA TI-1B')) and (posY = 1) then
+        begin
+            directionX := 0; 
+            directionY := 1; // Gerak ke bawah
+        end
+        else if (posX = 185 - Length('DAFTAR MAHASISWA TI-1B')) and (posY = 5 + inputvalue.userindex) then
+        begin
+            directionX := -1; 
+            directionY := 0; // Gerak ke kiri
+        end
+        else if (posX = 1) and (posY = 5 + inputvalue.userindex) then
+        begin
+            directionX := 0; 
+            directionY := -1; // Gerak ke atas
+        end;
 
         // Tampilkan judul tabel tetap
         gotoxy(1, 4); // Posisi awal judul tabel
@@ -327,12 +326,12 @@ begin
         // Tampilkan isi tabel
         for i := 1 to inputvalue.userindex do
         begin
-            gotoxy(25, 4 + i); // Baris berikutnya untuk setiap data mahasiswa
+            gotoxy(25, 3 + i); // Baris berikutnya untuk setiap data mahasiswa
             writeln(recordvalue.database[i]);
         end;
 
         // Tunggu sejenak sebelum iterasi berikutnya
-        Delay(0);
+        Delay(100); // Delay sedikit lebih lama untuk animasi yang halus
 
         // Ganti status tampil/hilang untuk judul tabel
         showTitle := not showTitle;
@@ -345,6 +344,8 @@ begin
         end;
     end;
 end;
+
+
 
 
 begin
