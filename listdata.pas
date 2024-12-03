@@ -268,7 +268,6 @@ var
 begin
     clrscr;
 
-    // Variabel untuk animasi judul
     posX := 1;           // Posisi awal teks (kolom)
     posY := 1;           // Posisi awal teks (baris)
     directionX := 1;     // Arah gerakan horizontal: 1 ke kanan, -1 ke kiri
@@ -277,22 +276,14 @@ begin
 
     while True do
     begin
-        // Bersihkan seluruh layar untuk mencegah bekas teks
+        
         clrscr;
-
-        // Tampilkan judul animasi di posisi baru
         gotoxy(posX, posY);
         write('DAFTAR MAHASISWA TI-1B');
-
-        // Tampilkan tanggal di bawah judul tabel
         gotoxy(25, 2);
         write('Hari ini: ', date, '/', hari, '/', bulan, '/', tahun);
-
-        // Perbarui posisi teks judul
         posX := posX + directionX;
         posY := posY + directionY;
-
-        // Periksa batas layar untuk mengubah arah gerakan
         if (posX = 1) and (posY = 1) then
         begin
             directionX := 1; 
@@ -314,11 +305,10 @@ begin
             directionY := -1; // Gerak ke atas
         end;
 
-        // Tampilkan judul tabel tetap
-        gotoxy(1, 4); // Posisi awal judul tabel
+        gotoxy(1, 4); 
         if showTitle then
         begin
-            TextColor(white); // Warna teks tabel
+            TextColor(white); 
             gotoxy(25, 3);
             writeln('|No |Nama Mahasiswa                  |Tanggal    |NIM           |Jurusan                         |Prodi                           |JK |');
         end;
@@ -326,20 +316,17 @@ begin
         // Tampilkan isi tabel
         for i := 1 to inputvalue.userindex do
         begin
-            gotoxy(25, 3 + i); // Baris berikutnya untuk setiap data mahasiswa
+            gotoxy(25, 3 + i);
             writeln(recordvalue.database[i]);
         end;
 
-        // Tunggu sejenak sebelum iterasi berikutnya
-        Delay(100); // Delay sedikit lebih lama untuk animasi yang halus
+        Delay(100); 
 
-        // Ganti status tampil/hilang untuk judul tabel
         showTitle := not showTitle;
 
-        // Cek input untuk keluar dari loop animasi
         if KeyPressed then
         begin
-            if ReadKey = #27 then // Tekan ESC untuk keluar
+            if ReadKey = #27 then 
                 exit;
         end;
     end;
